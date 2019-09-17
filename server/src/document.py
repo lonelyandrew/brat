@@ -16,28 +16,21 @@ Version:    2011-04-21
 from errno import EACCES, ENOENT
 from itertools import chain
 from os import listdir
+from os.path import abspath, dirname, getmtime, isabs, isdir
 from os.path import join as path_join
-from os.path import abspath, dirname, getmtime, isabs, isdir, normpath
-
-from config import BASE_DIR, DATA_DIR
+from os.path import normpath
 
 from annlog import annotation_logging_active
-from annotation import (BIONLP_ST_2013_COMPATIBILITY, JOINED_ANN_FILE_SUFF,
-                        TEXT_FILE_SUFFIX, AnnotationCollectionNotFoundError,
-                        AnnotationFileNotFoundError, TextAnnotations,
-                        open_textfile)
+from annotation import (BIONLP_ST_2013_COMPATIBILITY, JOINED_ANN_FILE_SUFF, TEXT_FILE_SUFFIX,
+                        AnnotationCollectionNotFoundError, AnnotationFileNotFoundError, TextAnnotations, open_textfile)
 from auth import AccessDeniedError, allowed_to_read
 from common import CollectionNotAccessibleError, ProtocolError
+from config import BASE_DIR, DATA_DIR
 from message import Messager
-from projectconfig import (ARC_DRAWING_ATTRIBUTES, ATTR_DRAWING_ATTRIBUTES,
-                           SEPARATOR_STR, SPAN_DRAWING_ATTRIBUTES,
-                           SPECIAL_RELATION_TYPES, VISUAL_ARC_DEFAULT,
-                           VISUAL_ATTR_DEFAULT, VISUAL_SPAN_DEFAULT,
-                           ProjectConfiguration,
-                           get_annotation_config_section_labels,
-                           options_get_ssplitter, options_get_tokenization,
-                           options_get_validation,
-                           visual_options_get_arc_bundle,
+from projectconfig import (ARC_DRAWING_ATTRIBUTES, ATTR_DRAWING_ATTRIBUTES, SEPARATOR_STR, SPAN_DRAWING_ATTRIBUTES,
+                           SPECIAL_RELATION_TYPES, VISUAL_ARC_DEFAULT, VISUAL_ATTR_DEFAULT, VISUAL_SPAN_DEFAULT,
+                           ProjectConfiguration, get_annotation_config_section_labels, options_get_ssplitter,
+                           options_get_tokenization, options_get_validation, visual_options_get_arc_bundle,
                            visual_options_get_text_direction)
 from stats import get_statistics
 
@@ -564,7 +557,7 @@ def get_directory_information(collection):
                   if fn.endswith('txt')]
 
     doclist = base_names[:]
-    doclist_header = [("Document", "string")]
+    doclist_header = [("文档", "string")]
 
     # Then get the modification times
     doclist_with_time = []
@@ -573,7 +566,7 @@ def get_directory_information(collection):
                               file_name + "." + JOINED_ANN_FILE_SUFF)
         doclist_with_time.append([file_name, _getmtime(file_path)])
     doclist = doclist_with_time
-    doclist_header.append(("Modified", "time"))
+    doclist_header.append(("修改时间", "time"))
 
     try:
         stats_types, doc_stats = get_statistics(real_dir, base_names)

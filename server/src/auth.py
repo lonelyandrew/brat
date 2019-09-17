@@ -10,12 +10,11 @@ Version:    2011-04-21
 """
 
 from hashlib import sha512
-from os.path import join as path_join
 from os.path import dirname, isdir
-
-from config import DATA_DIR, USER_PASSWORD
+from os.path import join as path_join
 
 from common import ProtocolError
+from config import DATA_DIR, USER_PASSWORD
 from message import Messager
 from projectconfig import ProjectConfiguration
 from session import get_session, invalidate_session
@@ -83,7 +82,7 @@ def login(user, password):
         raise InvalidAuthError
 
     get_session()['user'] = user
-    Messager.info('Hello!')
+    Messager.info('欢迎登录!')
     return {}
 
 
