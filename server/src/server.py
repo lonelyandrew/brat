@@ -14,8 +14,8 @@ Author:     Pontus Stenetorp   <pontus is s u-tokyo ac jp>
 Version:    2011-09-29
 """
 
-from os.path import join as path_join
 from os.path import abspath
+from os.path import join as path_join
 from sys import stderr, version_info
 from time import time
 
@@ -104,7 +104,7 @@ def _config_check():
         except ImportError as e:
             path.extend(orig_path)
             # "Prettiest" way to check specific failure
-            if e.message == 'No module named config':
+            if str(e) == 'No module named config':
                 Messager.error(_miss_config_msg(), duration=-1)
             else:
                 Messager.error(_get_stack_trace(), duration=-1)
