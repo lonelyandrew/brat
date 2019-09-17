@@ -12,15 +12,14 @@ Version:    2011-04-21
 
 from logging import info as log_info
 from os import listdir
-from os.path import join as path_join
 from os.path import getmtime, isfile
+from os.path import join as path_join
+from pickle import UnpicklingError
 from pickle import dump as pickle_dump
 from pickle import load as pickle_load
-from pickle import UnpicklingError
-
-from config import BASE_DIR, DATA_DIR
 
 from annotation import Annotations, open_textfile
+from config import BASE_DIR, DATA_DIR
 from message import Messager
 from projectconfig import get_config_path, options_get_validation
 
@@ -96,10 +95,10 @@ def get_statistics(directory, base_names, use_cache=True):
         generate = True
 
     # "header" and types
-    stat_types = [("Entities", "int"), ("Relations", "int"), ("Events", "int")]
+    stat_types = [("实体数量", "int"), ("关系数量", "int"), ("事件数量", "int")]
 
     if options_get_validation(directory) != 'none':
-        stat_types.append(("Issues", "int"))
+        stat_types.append(("问题数量", "int"))
 
     if generate:
         # Generate the document statistics from scratch

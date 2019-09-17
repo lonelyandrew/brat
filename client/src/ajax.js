@@ -60,8 +60,8 @@ var Ajax = (function($, window, undefined) {
                         'version?')) {
                       window.location.reload(true);
                     } else {
-                      dispatcher.post('messages', [[['Fatal Error: Protocol ' +
-                          'version mismatch, please contact the administrator',
+                      dispatcher.post('messages', [[['出现错误：' +
+                          '协议版本不匹配, 请联系管理员',
                           'error', -1]]]);
                     }
                   }
@@ -86,7 +86,7 @@ var Ajax = (function($, window, undefined) {
               pending--;
               dispatcher.post('unspin');
               $('#waiter').dialog('close');
-              dispatcher.post('messages', [[['Error: Action' + data.action + ' failed on error ' + response.statusText, 'error']]]);
+              dispatcher.post('messages', [[['错误: 操作' + data.action + ' 失败， 错误' + response.statusText, 'error']]]);
               console.error(textStatus + ':', errorThrown, response);
             }
           };
